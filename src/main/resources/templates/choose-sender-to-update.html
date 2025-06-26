@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>List All Parcel</title>
+  <style>
+    h1{
+      font-size: 30px;
+      color: #3F743F;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    table{
+      width:100%;
+      table-layout: fixed;
+    }
+    .tbl-header{
+      background-color: rgba(255,255,255,0.3);
+     }
+    .tbl-content{
+      height:300px;
+      overflow-x:auto;
+      margin-top: 0px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    th{
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      width: 100px;
+      color:  #3F743F;
+      text-transform: uppercase;
+    }
+    td{
+      padding: 15px;
+      width: 100px;
+      text-align: left;
+      vertical-align:middle;
+      font-weight: 600;
+      font-size: 12px;
+      color:  darkgreen;
+      border-bottom: solid 1px rgba(255,255,255,0.1);
+    }
+
+
+    /* demo styles */
+
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+    body{
+      background: linear-gradient(135deg, #7DA57D, #FAE3D1);
+      font-family: 'Roboto', sans-serif;
+    }
+    section{
+      margin: 50px;
+    }
+
+    /* for custom scrollbar for webkit browser*/
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+    ::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+    .button {
+        background-color: #3F743F;
+        border: none;
+        color: white;
+        padding: 10px 17px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 10px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+    .button:hover {
+      background-color: #FAE3D1;
+      border-color: #3F743F;
+      color: #3F743F;
+    }
+    .button-20 {
+      appearance: button;
+      background-color: #3F743F;
+      background-image: linear-gradient(180deg, rgba(255, 255, 255, .15), rgba(255, 255, 255, 0));
+      border: 1px solid #4D4AE8;
+      border-radius: 1rem;
+      box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0 inset,rgba(46, 54, 80, 0.075) 0 1px 1px;
+      box-sizing: border-box;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: 500;
+      line-height: 1.5;
+      margin: 0;
+      padding: .5rem 1rem;
+      text-align: center;
+      text-transform: none;
+      transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      vertical-align: middle;
+    }
+
+    .button-20:focus:not(:focus-visible),
+    .button-20:focus {
+      outline: 0;
+    }
+
+    .button-20:hover {
+      background-color: #FAE3D1;
+      border-color: #3F743F;
+      color: #3F743F;
+    }
+
+    .button-20:focus {
+      background-color: #3F743F;
+      border-color: #3F743F;
+      box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0 inset, rgba(46, 54, 80, 0.075) 0 1px 1px, rgba(104, 101, 235, 0.5) 0 0 0 .2rem;
+    }
+
+    .button-20:active {
+      background-color: #FAE3D1;
+      background-image: none;
+      border-color: #3F743F;
+      box-shadow: rgba(46, 54, 80, 0.125) 0 3px 5px inset;
+    }
+
+    .button-20:active:focus {
+      box-shadow: rgba(46, 54, 80, 0.125) 0 3px 5px inset, rgba(104, 101, 235, 0.5) 0 0 0 .2rem;
+    }
+
+    .button-20:disabled {
+      background-image: none;
+      box-shadow: none;
+      opacity: .65;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>List Parcel : Update</h1>
+<div class = "tbl-header">
+  <table>
+    <thead>
+    <tr>
+      <th> Tracking Number </th>
+      <th> Weight </th>
+      <th> Order Date </th>
+      <th> Delivery Status </th>
+      <th> Payment Status </th>
+      <th> Receiver Name </th>
+      <th> Sender Name </th>
+      <th> Update</th>
+    </tr>
+    </thead>
+  </table>
+</div>
+<div class = "tbl-content">
+  <table>
+    <tbody>
+    <tr th:if="${parcels.empty}">
+      <td colspan="2"> No Parcels Available </td>
+    </tr>
+    <tr th:each="parcel : ${parcels}">
+      <td><span th:text="${parcel.trackingNumber}"> </span></td>
+      <td><span th:text="${parcel.weight}"> </span></td>
+      <td><span th:text="${parcel.receiveDate}"> </span></td>
+      <td><span th:text="${parcel.deliveryStatus}"> </span></td>
+      <td><span th:text="${parcel.paymentStatus}"> </span></td>
+      <td><span th:text="${parcel.receiverName}"> </span></td>
+      <td><span th:text="${parcel.senderName}"> </span></td>
+      <td><a th:href="@{/parcels/edit/{id}(id=${parcel.trackingNumber})}"
+             class="button-20"><i class="fas fa-user-edit ml-2">Edit</i></a></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<a href = "#" th:href ="@{/}" class = "button">Main Menu</a>
+</body>
+</html>

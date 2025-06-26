@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Parcel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    .w3-sidebar a {font-family: "Roboto", sans-serif}
+    body,h1,h2,h3,h4,h5,h6,.w3-wide {
+        font-family: "Montserrat", sans-serif;
+        background-color: #fae3d1;
+    }
+    .w3{
+        font-size: 80px;
+        font-weight: bold;
+        color: #6b8f8c;
+        text-shadow: 5px 5px 0 #a1cfcb, 10px 10px 0 #ffffff;
+        animation: shadow-dance 2s infinite;
+    }
+    .w3-bar{
+      background-color: #6b8f8c;
+    }
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background-color: #a1cfcb;
+      padding: 25px 30px;
+      border-radius: 5px;
+      color: #364745;
+      font-weight: 600;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .container .title {
+      font-size: 25px;
+      font-weight: 700;
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    .container .title::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 30px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #7DA57D, #3F743F);
+    }
+
+    .user-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .input-box {
+      margin-bottom: 15px;
+      width: calc(100% / 2 - 20px);
+    }
+
+    .input-box span.details {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .input-box input,
+    .input-box select {
+      height: 45px;
+      width: 100%;
+      font-size: 16px;
+      padding-left: 15px;
+      border: 1px solid #ccc;
+      border-bottom-width: 2px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .input-box input:focus,
+    .input-box select:focus {
+      border-color: #3F743F;
+    }
+
+    .button {
+      height: 45px;
+      margin-top: 30px;
+    }
+
+    .button input {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(135deg, #364745, #6b8f8c);
+      border: none;
+      color: #fae3d1;
+      font-size: 18px;
+      font-weight: 500;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .button input:hover {
+      background: linear-gradient(-135deg, #364745, #6b8f8c);
+    }
+
+    @media(max-width: 584px) {
+      .container {
+        max-width: 100%;
+      }
+
+      .input-box {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body class="w3-content" style="max-width:1550px">
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
+  <div class="w3-container w3-display-container w3-padding-16">
+    <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+  </div>
+  <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+    <a href="/parcels/signup" th:href="@{/parcels/signup}" class="w3-bar-item w3-button">Add Parcel</a>
+    <a href="/parcels/list" th:href="@{/parcels/list}" class="w3-bar-item w3-button">View Parcel List</a>
+    <a href="/parcels/update" th:href="@{/parcels/update}" class="w3-bar-item w3-button">Update Parcel</a>
+    <a href="/parcels/delete" th:href="@{/parcels/delete}" class="w3-bar-item w3-button">Delete Parcel</a>
+  </div>
+  <a href="/index" th:href="@{/index}" class="w3-bar-item w3-button w3-text-grey">Home Page</a>
+  <form th:action="@{/logout}" method="post">
+    <button type="submit" class="w3-bar-item w3-button w3-padding" style="color: red">Logout</button>
+  </form>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-bar w3-top w3-hide-large w3-xlarge" style = "color: #6b8f8c;">
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px">
+
+  <!-- Push down content on small screens -->
+  <div class="w3-hide-large" style="margin-top:83px"></div>
+
+  <!-- Top header -->
+  <header class="w3-container w3-xlarge" style = "color: #364745; margin-left : 30px;">
+    <p class="w3-left">ParFetch</p>
+  </header>
+  <div class="container" style = "margin-left : 50px;">
+    <div class="title">Add Parcel</div>
+    <form th:action="@{/parcels/save}" th:object="${parcel}" method="post">
+      <div class="user-details">
+        <div class="input-box">
+          <span class="details">Receiver Name</span>
+          <input type="text" th:field="*{receiverName}" placeholder="Receiver Name" required />
+        </div>
+        <div class="input-box">
+          <span class="details">Receiver Phone</span>
+          <input type="text" th:field="*{receiverPhone}" placeholder="Receiver Phone" required />
+        </div>
+        <div class="input-box">
+          <span class="details">Sender Phone</span>
+          <input type="text" th:field="*{senderPhone}" placeholder="Sender Phone" required />
+        </div>
+        <div class="input-box">
+          <span class="details">Weight (g)</span>
+          <input type="number" th:field="*{weight}" placeholder="Weight in grams" required />
+        </div>
+        <div class="input-box">
+          <span class="details" >Order Arrival Date</span>
+          <input type="date" th:field="*{receiveDate}" style="color: grey" required />
+        </div>
+        <div class="input-box">
+          <span class="details">Payment Status</span>
+          <select th:field="*{paymentStatus}" style="color: grey; font-weight: bold;" required>
+            <option value="">Select</option>
+            <option value="Paid">Paid</option>
+            <option value="Unpaid">Unpaid</option>
+          </select>
+        </div>
+        <div class="input-box">
+          <span class="details">Delivery Status</span>
+          <select th:field="*{deliveryStatus}" style="color: grey; font-weight: bold;" required>
+            <option value="">Select</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Undelivered">Undelivered</option>
+          </select>
+        </div>
+      </div>
+      <div class="button">
+        <input type="submit" value="Add Parcel" />
+      </div>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w3-padding-64 w3-small w3-center" id="footer">
+    <div class="w3-row-padding">
+      <div>
+        <h4>Contact</h4>
+        <p><i class="fa fa-fw fa-map-marker"></i> ParFetch</p>
+        <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
+        <p><i class="fa fa-fw fa-envelope"></i> contact@parfetch.com</p>
+      </div>
+
+    </div>
+  </footer>
+  <div class="w3-center w3-padding-24" style = "color: #6b8f8c;">Powered by LogisQuick</a></div>
+
+  <!-- End page content -->
+</div>
+<script>
+
+  // Open and close sidebar
+  function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+  }
+
+  function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+  }
+</script>
+</body>
+</html>

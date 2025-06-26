@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Styling from your original page -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body, h1, h2, h3, h4, h5, h6, .w3-wide {
+            font-family: "Montserrat", sans-serif;
+            background-color: #fae3d1;
+        }
+
+        .w3-bar {
+            background-color: #6b8f8c;
+        }
+
+        button {
+            background-color: #6b8f8c;
+            color: #fae3d1;
+            padding: 15px;
+            border: none;
+            width: 100%;
+            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        button:hover {
+            color: #fae3d1;
+            background-color: red;
+        }
+
+        .container-box {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .message {
+            text-transform: uppercase;
+            background-image: linear-gradient(
+                -225deg,
+                #6b8f8c 0%,
+                #a1cfcb 29%,
+                #cbbaac 67%,
+                #a1cfcb 100%
+            );
+            background-size: auto auto;
+            background-clip: border-box;
+            background-size: 200% auto;
+            color: #6b8f8c;
+            font-size: 50px;
+            font-weight: 900;
+            background-clip: text;
+            text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textclip 2s linear infinite;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        @keyframes textclip {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        a.w3-button {
+            font-weight: bold;
+            background-color: #6b8f8c;
+            color: #fae3d1 !important;
+            padding: 12px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        a.w3-button:hover {
+            background-color: #3f5e5c;
+        }
+
+    </style>
+</head>
+<body class="w3-content" style="max-width:1550px">
+
+<!-- Top bar with Logout -->
+<header class="w3-bar w3-top w3-xlarge">
+    <form th:action="@{/logout}" method="post" class="w3-bar-item w3-right">
+        <button type="submit">Logout</button>
+    </form>
+</header>
+
+<!-- Page Content -->
+<div class="w3-main" style="margin-top: 100px; padding: 24px;">
+
+    <div class="container-box">
+        <div class="message" th:text="'Welcome, ' + ${username}">Welcome, Student</div>
+        <a href="/parcels/list" th:href="@{/parcels/list(fromHome=true)}" class="w3-button">View Parcel List</a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w3-padding-64 w3-small w3-center" id="footer" style="margin-top: 60px;">
+        <div>
+            <h4>Contact</h4>
+            <p><i class="fa fa-fw fa-map-marker"></i> ParFetch</p>
+            <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
+            <p><i class="fa fa-fw fa-envelope"></i> contact@parfetch.com</p>
+        </div>
+        <div class="w3-center w3-padding-24" style="color: #6b8f8c;">Powered by LogisQuick</div>
+    </footer>
+
+</div>
+</body>
+</html>

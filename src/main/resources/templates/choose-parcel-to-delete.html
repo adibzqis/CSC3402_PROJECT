@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>List Parcel: Delete</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body, h2, h3, h4, h5, h6, .w3-wide {
+      font-family: "Montserrat", sans-serif;
+      background-color: #fae3d1;
+    }
+
+    .w3-bar {
+      background-color: #6b8f8c;
+    }
+
+    h1 {
+        font-size: 30px;
+        color: #364745;
+        font-weight: 700;
+        font-family: "Montserrat", sans-serif;
+        margin-top: 30px;
+    }
+
+    .container {
+        max-width: 1400px;
+        background-color: #a1cfcb;
+        margin: 30px auto;
+        padding: 25px 30px;
+        border-radius: 5px;
+        color: #364745;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .search-bar {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+
+    .search-bar input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .search-bar button {
+        background-color: #3F743F;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin-left: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .search-bar button:hover {
+        background-color: #FAE3D1;
+        color: #3F743F;
+        border: 1px solid #3F743F;
+    }
+     table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    th {
+        background-color: #6b8f8c;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .button {
+        display: block;
+        margin: 30px auto 10px auto;
+        background-color: #364745;
+        color: #fae3d1;
+        padding: 10px 30px;
+        font-weight: 600;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    .button:hover {
+        background-color: #FAE3D1;
+        color: #364745;
+
+    }
+
+    .delete-button {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 5px;
+      background-color: maroon;
+      color: white;
+      text-decoration: none;
+    }
+
+    .delete-button:hover {
+      background-color: pink;
+      color: maroon;
+      border: 1px solid maroon;
+    }
+  </style>
+</head>
+<body class="w3-content" style="max-width:1550px">
+
+
+<!-- Top menu on small screens -->
+<header class="w3-bar w3-top w3-hide-large w3-xlarge" style="color: #6b8f8c;">
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+</header>
+
+<!-- Overlay effect -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+<!-- Page content -->
+<div class="w3-main" style="margin-left:50px">
+  <div class="w3-hide-large" style="margin-top:83px"></div>
+
+  <header class="w3-container w3-xlarge" style="color: #364745; margin-left: 30px;">
+    <p class="w3-left">ParFetch</p>
+  </header>
+
+  <div class="container">
+    <h1>Parcel List: Delete</h1>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Tracking Number</th>
+        <th>Weight</th>
+        <th>Order Date</th>
+        <th>Delivery Status</th>
+        <th>Payment Status</th>
+        <th>Receiver Name</th>
+        <th>Receiver Phone</th>
+        <th>Sender Phone</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:if="${parcels.empty}">
+        <td colspan="9" style="text-align:center;">No Parcels Available</td>
+      </tr>
+      <tr th:each="parcel : ${parcels}">
+        <td th:text="${parcel.trackingNumber}">TN001</td>
+        <td th:text="${parcel.weight}">500</td>
+        <td th:text="${parcel.receiveDate}">2024-06-24</td>
+        <td th:text="${parcel.deliveryStatus}">Delivered</td>
+        <td th:text="${parcel.paymentStatus}">Paid</td>
+        <td th:text="${parcel.receiverName}">Jane Doe</td>
+        <td th:text="${parcel.receiverPhone}">0123456789</td>
+        <td th:text="${parcel.senderPhone}">0987654321</td>
+        <td>
+          <a th:href="@{/parcels/delete/{id}(id=${parcel.trackingNumber})}" class="delete-button">
+            <i class="fa fa-trash-alt"></i> Delete
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <a href="#" th:href="@{/}" class="button">Main Menu</a>
+  </div>
+
+  <footer class="w3-padding-64 w3-small w3-center" id="footer">
+    <div class="w3-row-padding">
+      <div>
+        <h4>Contact</h4>
+        <p><i class="fa fa-fw fa-map-marker"></i> ParFetch</p>
+        <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
+        <p><i class="fa fa-fw fa-envelope"></i> contact@parfetch.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="w3-center w3-padding-24" style="color: #6b8f8c;">Powered by LogisQuick</div>
+</div>
+
+<script>
+  function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+  }
+
+  function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+  }
+</script>
+</body>
+</html>
